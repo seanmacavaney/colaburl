@@ -95,7 +95,8 @@ def generate(code: str, fmt: str, notebook_name: str) -> str:
             py = urlsafe_b64decode(code.encode()).decode()
         elif fmt == 'py.lz4':
             py = lz4.block.decompress(urlsafe_b64decode(code.encode())).decode()
-        cells = re.split(r'(?:\r?\n){2,}(?!(?: |\n|\r))', py) # two or more \n without indentation following indicates a new cell
+        # two or more \n without indentation following indicates a new cell
+        cells = re.split(r'(?:\r?\n){2,}(?!(?: |\n|\r))', py)
         notebook = json.dumps({
             "nbformat": 4,
             "nbformat_minor": 0,
